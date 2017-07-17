@@ -49,7 +49,9 @@ function toJoiProp ({
   case 'array':
     return Joi.array().items(toJoiProp({
       propertyName,
-      property: shallowClone(property, { type: 'object' }),
+      property: shallowClone(property, {
+        type: property.items.type || 'object'
+      }),
       model,
       models
     }))
