@@ -1,5 +1,6 @@
 const Joi = require('joi')
 const shallowClone = require('xtend')
+const extend = require('xtend/mutable')
 const {
   isEmailProperty,
   isInlinedProperty,
@@ -11,6 +12,7 @@ exports.property = toJoiProp
 exports.model = toJoi
 
 const BYTES = Joi.string().regex(/^(hex|base64):/)
+let ObjectProps
 
 function toJoi ({ model, models }) {
   const { properties, required } = model
@@ -18,6 +20,17 @@ function toJoi ({ model, models }) {
   for (let propertyName in properties) {
     let property = properties[propertyName]
     joiProps[propertyName] = toJoiProp({ propertyName, property, model, models })
+  }
+
+  if (model.id !== 'tradle.Object') {
+    if (!ObjectProps) {
+      ObjectProps = toJoi({
+        models,
+        model: models['tradle.Object']
+      })
+    }
+
+    extend(joiProps, ObjectProps)
   }
 
   // leave validation to graphql
