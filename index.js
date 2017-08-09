@@ -56,7 +56,7 @@ function toJoiProp ({
   case 'number':
     return toJoiNumberProperty({ propertyName, property })
   case 'date':
-    return Joi.date().timestamp()
+    return Joi.date().timestamp().raw()
   case 'boolean':
     return Joi.boolean()
   case 'array':
