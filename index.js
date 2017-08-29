@@ -89,6 +89,8 @@ function toJoiProp ({
       id: Joi.string(),
       title: Joi.string().allow('', null)
     })
+  case 'enum':
+    return property.oneOf ? Joi.allow(...property.oneOf) : Joi.any()
   default:
     throw new Error(`unknown type: ${type}`)
   }
