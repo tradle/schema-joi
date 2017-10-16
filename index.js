@@ -118,11 +118,11 @@ function toJoiStringProperty ({ propertyName, property }) {
   }
 
   if (property.maxLength) {
-    joiProp = joiProp.max(Math.pow(10, property.maxLength) - 1)
+    joiProp = joiProp.max(property.maxLength)
   }
 
   if (property.minLength) {
-    joiProp = joiProp.min(Math.pow(10, property.minLength) - 1)
+    joiProp = joiProp.min(property.minLength)
   }
 
   return joiProp
